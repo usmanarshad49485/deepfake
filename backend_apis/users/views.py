@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
 from django.core.mail import send_mail
-from rest_framework import generics, status, viewsets
+from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -60,6 +60,6 @@ def email_now(email, token):
     send_mail("Reset Password for Smart Scaling App", message, settings.EMAIL_HOST_USER, [email], fail_silently=False)
 
 
-class ContactMessageViewSet(viewsets.ModelViewSet):
+class ContactMessageListCreateView(generics.ListCreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer

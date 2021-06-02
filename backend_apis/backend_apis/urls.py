@@ -17,13 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from users.views import ContactMessageViewSet
+from users.views import ContactMessageListCreateView
 
-router = DefaultRouter()
-router.register('contact-message', ContactMessageViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include("users.urls")),
-    path('api/', include(router.urls)),
+    path('api/message', ContactMessageListCreateView.as_view()),
 ]

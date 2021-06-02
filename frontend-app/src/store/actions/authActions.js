@@ -30,7 +30,7 @@ export const signup = (data) => {
   };
 };
 
-export const changePassword = (password, token) => {
+export const changePassword = (password) => {
   return (dispatch) => {
     dispatch({ type: AUTH_START });
 
@@ -55,12 +55,14 @@ export const setToken = (token) => {
     let decodedJwt = decode(token);
     let expiryDate = new Date(decodedJwt.exp * 1000);
 
+    debugger;
     if (expiryDate <= new Date()) dispatch({ type: LOGOUT });
     else {
       setTimeout(() => {
         if (expiryDate <= new Date()) dispatch({ type: LOGOUT });
       }, 3600 * 1000);
 
+      debugger;
       dispatch({ type: AUTH_SUCCESS, payload: decodedJwt });
 
       setTimeout(() => {
@@ -78,10 +80,12 @@ export const login = (username, password) => {
       .then((res) => {
         localStorage.setItem("token", res.data.access);
 
+        debugger;
         dispatch(setToken(res.data.access));
       })
       .catch((err) => {
         console.log(err);
+        debugger;
         dispatch({ type: ERROR, payload: err?.response?.data?.detail });
       });
   };

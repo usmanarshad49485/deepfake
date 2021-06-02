@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-// import { addMessage } from "../../store/actions/messageActions";
+import { addMessage } from "../../store/actions/messageActions";
 
 const ContactUs = (props) => {
   const [name, setName] = useState("");
@@ -24,7 +24,11 @@ const ContactUs = (props) => {
         message,
       };
       console.log(obj);
-      // dispatch(addMessage(obj));
+      dispatch(addMessage(obj));
+
+      setName("");
+      setMessage("");
+      setEmail("");
     }
   };
 

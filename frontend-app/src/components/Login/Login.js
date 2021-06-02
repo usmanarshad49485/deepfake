@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import "./index.css";
-// import { login } from "../../store/actions/authActions";
+import { login } from "../../store/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Login = (props) => {
@@ -15,7 +15,6 @@ const Login = (props) => {
   const reduxError = useSelector((state) => state.auth.error);
   const loggedIn = useSelector((state) => state.auth.object !== null);
 
-
   useEffect(() => {
     setError(reduxError);
   }, [reduxError]);
@@ -25,14 +24,15 @@ const Login = (props) => {
     if (username === "" || password === "") {
       setError("username and password are required.");
     } else {
-      // dispatch(login(username, password));
-      setUsername("");      
+      dispatch(login(username, password));
+      setUsername("");
     }
     setPassword("");
   };
 
   return (
     <div className="login-dark">
+      {loggedIn && <Redirect to="/" />}
       <form onSubmit={formSubmitHandler}>
         <h2 className="sr-only">Login Form</h2>
         <h5>Login to Continue</h5>

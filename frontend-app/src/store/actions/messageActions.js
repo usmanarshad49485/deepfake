@@ -18,7 +18,7 @@ export const fetchMessages = () => {
 export const addMessage = (message) => {
     return (dispatch) => {
       axios
-        .post("/api/message")
+        .post("/api/message", message)
         .then((res) => {
           dispatch({ type: ADD_MESSAGE, payload: res.data });
         })

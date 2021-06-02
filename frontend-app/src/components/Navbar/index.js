@@ -1,8 +1,9 @@
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
 import "./index.css";
 
-const Header = (props) => (
+const Header = ({ loggedIn, isAdmin }) => (
   <div className="header-dark">
     <nav className="navbar navbar-dark navbar-expand-lg navigation-clean-search">
       <div className="container">
@@ -25,24 +26,64 @@ const Header = (props) => (
               </Link>
             </li>
             <li className="nav-item" role="presentation">
-              <Link className="nav-link" to="contact">
-                Contact Us
-              </Link>
+              {isAdmin ? (
+                <Link className="nav-link" to="/inbox">
+                  Inbox
+                </Link>
+              ) : (
+                <Link className="nav-link" to="/contact">
+                  Contact Us
+                </Link>
+              )}
+            </li>
+            <li className="nav-item" role="presentation">
+              {isAdmin ? (
+                <Link className="nav-link" to="/admin">
+                  User Management
+                </Link>
+              ) : (
+                loggedIn && (
+                  <Link className="nav-link" to="/user">
+                    User Space
+                  </Link>
+                )
+              )}
             </li>
           </ul>
           <form className="form-inline mr-auto" target="_self"></form>
-          <span className="navbar-text">
-            <Link className="login" to="login">
-              Log In
-            </Link>
-          </span>
-          <Link
-            className="btn btn-light action-button"
-            role="button"
-            to="register"
-          >
-            Register
-          </Link>
+          {loggedIn ? (
+            <Fragment>
+              <Link
+                className="btn btn-light action-button"
+                role="button"
+                to="/change-password"
+              >
+                Change Password
+              </Link>
+              <Link
+                className="btn btn-light action-button"
+                role="button"
+                to="/logout"
+              >
+                Logout
+              </Link>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <span className="navbar-text">
+                <Link className="login" to="/login">
+                  Log In
+                </Link>
+              </span>
+              <Link
+                className="btn btn-light action-button"
+                role="button"
+                to="/register"
+              >
+                Register
+              </Link>
+            </Fragment>
+          )}
         </div>
       </div>
     </nav>

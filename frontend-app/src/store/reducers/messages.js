@@ -1,7 +1,7 @@
 import produce from "immer";
 
-export const FETCH_MESSAGES = "auth/START";
-export const ADD_MESSAGE = "auth/SUCCESS";
+export const FETCH_MESSAGES = "message/FETCH_ALL";
+export const ADD_MESSAGE = "message/ADD_SUCCESS";
 
 const initialState = {
   data: [],
@@ -14,7 +14,8 @@ const reducer = produce((state, action) => {
       break;
 
     case ADD_MESSAGE:
-      state.data.push(action.payload);
+      debugger;
+      state.data?.push(action.payload);
       break;
       
     default:

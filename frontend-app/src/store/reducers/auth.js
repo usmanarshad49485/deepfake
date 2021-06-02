@@ -21,6 +21,7 @@ const reducer = produce((state, action) => {
       break;
 
     case AUTH_SUCCESS:
+      debugger;
       state.object = action.payload;
       state.loading = false;
       state.success = true;

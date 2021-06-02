@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import "./index.css";
-// import { signup } from "../../store/actions/authActions";
+import { signup } from "../../store/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 
 const Register = (props) => {
@@ -18,14 +18,13 @@ const Register = (props) => {
   const dispatch = useDispatch();
 
   const reduxError = useSelector((state) => state.auth.error);
-  const loggedIn = useSelector((state) => state.auth.object !== null);
+  const success = useSelector((state) => state.auth.success);
 
   useEffect(() => {
     setError(reduxError);
   }, [reduxError]);
 
   const formSubmitHandler = (e) => {
-    debugger;
     e.preventDefault();
 
     if (
@@ -48,13 +47,14 @@ const Register = (props) => {
           password,
           username,
         };
-        // dispatch(signup(obj));
+        dispatch(signup(obj));
       }
     }
   };
 
   return (
     <div Name="register-photo">
+    {success && <Redirect to="/login" />}
       <div className="form-container">
         <div className="image-holder"></div>
         <form>
@@ -137,7 +137,11 @@ const Register = (props) => {
           </div>
           <small style={{ color: "red" }}>{error}</small>
           <div className="form-group">
-            <button className="btn btn-primary btn-block" type="submit" onClick={formSubmitHandler}>
+            <button
+              className="btn btn-primary btn-block"
+              type="submit"
+              onClick={formSubmitHandler}
+            >
               Sign Up
             </button>
           </div>
