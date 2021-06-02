@@ -1,9 +1,39 @@
-import "./index.css"
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import "./index.css";
+// import { login } from "../../store/actions/authActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = (props) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const dispatch = useDispatch();
+
+  const reduxError = useSelector((state) => state.auth.error);
+  const loggedIn = useSelector((state) => state.auth.object !== null);
+
+
+  useEffect(() => {
+    setError(reduxError);
+  }, [reduxError]);
+
+  const formSubmitHandler = (e) => {
+    e.preventDefault();
+    if (username === "" || password === "") {
+      setError("username and password are required.");
+    } else {
+      // dispatch(login(username, password));
+      setUsername("");      
+    }
+    setPassword("");
+  };
+
   return (
     <div className="login-dark">
-      <form method="post">
+      <form onSubmit={formSubmitHandler}>
         <h2 className="sr-only">Login Form</h2>
         <h5>Login to Continue</h5>
         <div className="illustration">
@@ -23,8 +53,10 @@ const Login = (props) => {
             className="form-control"
             id="UserName"
             name="UserName"
-            placeholder="UserName"
+            placeholder="username*"
             required
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
         <input
@@ -32,17 +64,20 @@ const Login = (props) => {
           type="password"
           id="Password"
           name="password"
-          placeholder="Password"
+          placeholder="password*"
           required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
+        <small style={{ color: "red" }}>{error}</small>
         <div className="form-group">
           <button className="btn btn-primary btn-block" type="submit">
             Log In
           </button>
         </div>
-        <a className="forgot" href="ForgetPassword.html">
+        <Link className="forgot" to="/change-password">
           Forgot your password?
-        </a>
+        </Link>
       </form>
     </div>
   );

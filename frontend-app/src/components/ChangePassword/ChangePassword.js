@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./index.css";
 
 const ChangePassword = (props) => (
@@ -53,14 +54,13 @@ const ChangePassword = (props) => (
           <button
             class="btn btn-primary btn-block"
             type="submit"
-            onclick="myFunction()"
           >
             Change
           </button>
         </div>
-        <a class="already" href="Login.html">
+        <Link class="already" to="login">
           Back to Login Page
-        </a>
+        </Link>
       </form>
     </div>
   </div>

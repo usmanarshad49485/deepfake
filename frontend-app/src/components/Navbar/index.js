@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
+
 import "./index.css";
 
 const Header = (props) => (
   <div className="header-dark">
     <nav className="navbar navbar-dark navbar-expand-lg navigation-clean-search">
       <div className="container">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" to="/">
           Digital Image Processing <br /> Using DeepFake Technology
-        </a>
+        </Link>
         <button
           data-toggle="collapse"
           className="navbar-toggler"
@@ -18,29 +20,29 @@ const Header = (props) => (
         <div className="collapse navbar-collapse" id="navcol-1">
           <ul className="nav navbar-nav">
             <li className="nav-item" role="presentation">
-              <a className="nav-link" href="HomePage.html">
+              <Link className="nav-link" to="/">
                 HOME
-              </a>
+              </Link>
             </li>
             <li className="nav-item" role="presentation">
-              <a className="nav-link" href="ContactUs.html">
+              <Link className="nav-link" to="contact">
                 Contact Us
-              </a>
+              </Link>
             </li>
           </ul>
           <form className="form-inline mr-auto" target="_self"></form>
           <span className="navbar-text">
-            <a className="login" href="Login.html">
+            <Link className="login" to="login">
               Log In
-            </a>
+            </Link>
           </span>
-          <a
+          <Link
             className="btn btn-light action-button"
             role="button"
-            href="Register.html"
+            to="register"
           >
             Register
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
