@@ -38,7 +38,12 @@ const Header = ({ loggedIn, isAdmin }) => (
             </li>
             <li className="nav-item" role="presentation">
               {isAdmin ? (
-                <Link className="nav-link" to="/admin">
+                <Link
+                  className="nav-link"
+                  onClick={() =>
+                    (window.location.href = "http://localhost:8000/admin")
+                  }
+                >
                   User Management
                 </Link>
               ) : (

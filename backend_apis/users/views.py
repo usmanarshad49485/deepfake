@@ -27,6 +27,7 @@ class SignupView(generics.GenericAPIView):
         else:
             user = serializer.save()
             user.set_password(user.password)
+            user.is_active = False
             user.save()
             return HttpResponse(status=status.HTTP_201_CREATED)
 
