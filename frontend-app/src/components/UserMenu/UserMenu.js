@@ -1,4 +1,32 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { uploadFile } from "../../store/actions/userActions";
+
 const Menu = (props) => {
+  const dispatch = useDispatch();
+
+  const [sourceFile, setSourceFile] = useState(null);
+  const [targetFile, setTargetFile] = useState(null);
+
+  const uploadFileHandler = (type) => {
+    if ("source" === type) {
+      if (sourceFile === null) {
+        alert("Please choose a source file.");
+      } else {
+        console.log("upload a source file here");
+        dispatch(uploadFile(sourceFile, "source"));
+      }
+    } else if ("target" === type) {
+      if (targetFile === null) {
+        alert("Please select a target file");
+      } else {
+        console.log("upload a target file here.");
+        dispatch(uploadFile(targetFile, "target"));
+      }
+    }
+  };
+
   return (
     <div class="login-dark">
       <h2>Welcome To User WorkSpace</h2>
@@ -10,15 +38,35 @@ const Menu = (props) => {
               <b>Step 1.</b> Upload Source Video:-
             </td>
             <td>
-              <input class="refreshbtn" type="file" id="myfile" name="myfile" />
-              <br /> <input class="refreshbtn" type="submit" />{" "}
+              <input
+                class="refreshbtn"
+                type="file"
+                onChange={(e) => setSourceFile(e.target.files[0])}
+                accept="video/mp4,video/x-m4v,video/*"
+              />
+              <br />{" "}
+              <input
+                class="refreshbtn"
+                type="submit"
+                onClick={() => uploadFileHandler("source")}
+              />
             </td>
             <td>
               <b>Step 2.</b> Upload Destination Video:-
             </td>
             <td>
-              <input class="refreshbtn" type="file" id="myfile" name="myfile" />
-              <br /> <input class="refreshbtn" type="submit" />{" "}
+              <input
+                class="refreshbtn"
+                type="file"
+                onChange={(e) => setTargetFile(e.target.files[0])}
+                accept="video/mp4,video/x-m4v,video/*"
+              />
+              <br />{" "}
+              <input
+                class="refreshbtn"
+                type="submit"
+                onClick={() => uploadFileHandler("target")}
+              />
             </td>
           </tr>
           <tr>

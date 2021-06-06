@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from users.views import ContactMessageListCreateView
+from users.views import ContactMessageListCreateView, source_file_upload, target_file_upload
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include("users.urls")),
     path('api/message', ContactMessageListCreateView.as_view()),
+    path('api/source/upload', source_file_upload),
+    path('api/target/upload', target_file_upload),
 ]

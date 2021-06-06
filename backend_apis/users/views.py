@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from users.models import ContactMessage
@@ -64,3 +65,29 @@ def email_now(email, token):
 class ContactMessageListCreateView(generics.ListCreateAPIView):
     queryset = ContactMessage.objects.all()
     serializer_class = ContactMessageSerializer
+
+
+def write_file(file, name):
+    with open(f"uploads/{name}", "wb+") as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
+
+
+@api_view(['POST'])
+def source_file_upload(request):
+    if not "file" in request.data:
+        return Response({"error": "file not found"})
+
+    file = request.data["file"]
+    write_file(file, f"source_file.{file.name.split('.')[1]}")
+    return Response("File uploaded.")
+
+
+@api_view(['POST'])
+def target_file_upload(request):
+    if not "file" in request.data:
+        return Response({"error": "file not found"})
+
+    file = request.data["file"]
+    write_file(file, f"target_file.{file.name.split('.')[1]}")
+    return Response("File uploaded.")

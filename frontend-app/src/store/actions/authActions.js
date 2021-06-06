@@ -55,14 +55,12 @@ export const setToken = (token) => {
     let decodedJwt = decode(token);
     let expiryDate = new Date(decodedJwt.exp * 1000);
 
-    debugger;
     if (expiryDate <= new Date()) dispatch({ type: LOGOUT });
     else {
       setTimeout(() => {
         if (expiryDate <= new Date()) dispatch({ type: LOGOUT });
       }, 3600 * 1000);
 
-      debugger;
       dispatch({ type: AUTH_SUCCESS, payload: decodedJwt });
 
       setTimeout(() => {
