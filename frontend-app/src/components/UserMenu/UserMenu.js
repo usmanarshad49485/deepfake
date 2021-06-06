@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { uploadFile } from "../../store/actions/userActions";
+import { uploadFile, performStep } from "../../store/actions/userActions";
 
 const Menu = (props) => {
   const dispatch = useDispatch();
@@ -25,6 +25,11 @@ const Menu = (props) => {
         dispatch(uploadFile(targetFile, "target"));
       }
     }
+  };
+
+  const stepClickHandler = (step) => {
+    console.log(step);
+    dispatch(performStep(step));
   };
 
   return (
@@ -81,9 +86,7 @@ const Menu = (props) => {
             <td>
               <button
                 class="btn btn-primary btn-block"
-                id="GO"
-                type="submit"
-                onclick="window.open('file:///C:\Users\')"
+                onClick={() => stepClickHandler(3)}
               >
                 GO
               </button>
@@ -99,7 +102,10 @@ const Menu = (props) => {
               <b>Step 4.</b> Extract Images From Destination Video:-
             </td>
             <td>
-              <button class="btn btn-primary btn-block" id="GO" type="submit">
+              <button
+                class="btn btn-primary btn-block"
+                onClick={() => stepClickHandler(4)}
+              >
                 GO
               </button>
             </td>
@@ -114,7 +120,10 @@ const Menu = (props) => {
               <b>Step 5.</b> Extract Faces From Source DataSet:-
             </td>
             <td>
-              <button class="btn btn-primary btn-block" id="GO" type="submit">
+              <button
+                class="btn btn-primary btn-block"
+                onClick={() => stepClickHandler(5)}
+              >
                 GO
               </button>
             </td>
@@ -129,7 +138,10 @@ const Menu = (props) => {
               <b>Step 6.</b> Extract Faces From Destination DataSet:-
             </td>
             <td>
-              <button class="btn btn-primary btn-block" id="GO" type="submit">
+              <button
+                class="btn btn-primary btn-block"
+                onClick={() => stepClickHandler(6)}
+              >
                 GO
               </button>
             </td>
@@ -144,7 +156,10 @@ const Menu = (props) => {
               <b>Step 7.</b> Perform Training (Quick96):-
             </td>
             <td>
-              <button class="btn btn-primary btn-block" id="GO" type="submit">
+              <button
+                class="btn btn-primary btn-block"
+                onClick={() => stepClickHandler(7)}
+              >
                 GO
               </button>
             </td>
@@ -159,7 +174,10 @@ const Menu = (props) => {
               <b>Step 8.</b> Convert to MP4 Video (Quick96):-
             </td>
             <td>
-              <button class="btn btn-primary btn-block" id="GO" type="submit">
+              <button
+                class="btn btn-primary btn-block"
+                onClick={() => stepClickHandler(8)}
+              >
                 GO
               </button>
             </td>

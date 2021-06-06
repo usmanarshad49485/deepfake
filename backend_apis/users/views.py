@@ -1,3 +1,6 @@
+import subprocess
+import os
+
 from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.conf import settings
@@ -11,6 +14,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from users.models import ContactMessage
 from users.serializers import (CustomTokenObtainPairSerializer, SignupSerializer, UserSerializer,
                                ContactMessageSerializer)
+
+
+UPLOAD_DIRECTORY = "dip"
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -68,7 +74,7 @@ class ContactMessageListCreateView(generics.ListCreateAPIView):
 
 
 def write_file(file, name):
-    with open(f"dip/workspace/{name}", "wb+") as destination:
+    with open(f"{UPLOAD_DIRECTORY}/workspace/{name}", "wb+") as destination:
         for chunk in file.chunks():
             destination.write(chunk)
 
@@ -93,4 +99,24 @@ def target_file_upload(request):
     return Response("File uploaded.")
 
 
+@api_view(['POST'])
+def perform_steps(request, step):
+    if step == 3:
+        name = r'2) extract images from video data_src.bat'
+    elif step == 4:
+        name = r'3.2) extract images from video data_dst FULL FPS.bat'
+    elif step == 5:
+        name = r'4) data_src extract faces MANUAL.bat'
+    elif step == 6:
+        name = r'5) data_dst extract faces MANUAL.bat'
+    elif step == 7:
+        name = r'6) train Quick96.bat'
+    elif step == 8:
+        name = r'7) convert Quick96.bat'
+    else:
+        name = r'8) converted to mp4.bat'
+
+    path_to_file = os.path.join(os.getcwd(), UPLOAD_DIRECTORY, name)
+    subprocess.call([path_to_file])
+    return Response("Step Executed.")
 # result.mp4

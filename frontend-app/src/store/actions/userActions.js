@@ -15,3 +15,13 @@ export const uploadFile = (file, type) => {
       .finally(() => dispatch({ type: LOADING_END }));
   };
 };
+
+export const performStep = (step) => {
+  return (dispatch) => {
+    dispatch({ type: LOADING_START });
+    axios
+      .post(`/api/make-step/${step}`)
+      .catch((err) => console.log(err.response))
+      .finally(() => dispatch({ type: LOADING_END }));
+  };
+};

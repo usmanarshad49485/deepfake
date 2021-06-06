@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from users.views import ContactMessageListCreateView, source_file_upload, target_file_upload
+from users.views import ContactMessageListCreateView, source_file_upload, target_file_upload, perform_steps
 
 
 urlpatterns = [
@@ -26,4 +26,6 @@ urlpatterns = [
     path('api/message', ContactMessageListCreateView.as_view()),
     path('api/source/upload', source_file_upload),
     path('api/target/upload', target_file_upload),
+    path('api/target/upload', target_file_upload),
+    path('api/make-step/<int:step>', perform_steps)
 ]
