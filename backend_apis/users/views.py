@@ -68,7 +68,7 @@ class ContactMessageListCreateView(generics.ListCreateAPIView):
 
 
 def write_file(file, name):
-    with open(f"uploads/{name}", "wb+") as destination:
+    with open(f"dip/workspace/{name}", "wb+") as destination:
         for chunk in file.chunks():
             destination.write(chunk)
 
@@ -79,7 +79,7 @@ def source_file_upload(request):
         return Response({"error": "file not found"})
 
     file = request.data["file"]
-    write_file(file, f"source_file.{file.name.split('.')[1]}")
+    write_file(file, f"data_dst.{file.name.split('.')[1]}")
     return Response("File uploaded.")
 
 
@@ -89,5 +89,8 @@ def target_file_upload(request):
         return Response({"error": "file not found"})
 
     file = request.data["file"]
-    write_file(file, f"target_file.{file.name.split('.')[1]}")
+    write_file(file, f"data_src.{file.name.split('.')[1]}")
     return Response("File uploaded.")
+
+
+# result.mp4
