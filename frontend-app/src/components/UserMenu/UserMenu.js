@@ -192,9 +192,11 @@ const Menu = (props) => {
               <b>Step 9(Final).</b> View Result.mp4 Video:-
             </td>
             <td>
-              <button class="btn btn-primary btn-block" id="GO" type="submit">
-                GO
-              </button>
+              <a href="http://localhost:8000/download" target="_blank">
+                <button class="btn btn-primary btn-block" id="GO" type="submit">
+                  GO
+                </button>
+              </a>
             </td>
           </tr>
         </thead>

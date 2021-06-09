@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from users.views import ContactMessageListCreateView, source_file_upload, target_file_upload, perform_steps
+from users.views import (
+    ContactMessageListCreateView, source_file_upload,
+    target_file_upload, perform_steps, get_download_link)
 
 
 urlpatterns = [
@@ -27,5 +29,6 @@ urlpatterns = [
     path('api/source/upload', source_file_upload),
     path('api/target/upload', target_file_upload),
     path('api/target/upload', target_file_upload),
-    path('api/make-step/<int:step>', perform_steps)
+    path('api/make-step/<int:step>', perform_steps),
+    path('download', get_download_link)
 ]

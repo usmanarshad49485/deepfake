@@ -117,6 +117,22 @@ def perform_steps(request, step):
         name = r'8) converted to mp4.bat'
 
     path_to_file = os.path.join(os.getcwd(), UPLOAD_DIRECTORY, name)
+    print(path_to_file)
     subprocess.call([path_to_file])
     return Response("Step Executed.")
+
+
+@api_view(['GET'])
+def get_download_link(request):
+    file_path = os.path.join(os.getcwd(), "dip", "workspace", "Result.mp4")
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="video/mp4")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+    else:
+        response = Response({"error": "Results.mp4 don't exists."}, status=status.HTTP_400_BAD_REQUEST)
+
+    return response
 # result.mp4
+
+print(os.getcwd())
